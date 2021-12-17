@@ -2,6 +2,8 @@
 
 == Introduction
 
+Your user is %username%
+
 Lots of people have old crusty software and realize they need to modernize it if they’re going to keep up
 
 Rewriting legacy code to take advantage of all of the features that containers offer can take a while and be a little complicated. It may require training/hiring staff which isn’t always an option.
