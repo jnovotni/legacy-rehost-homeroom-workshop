@@ -1,8 +1,12 @@
-name: AsciiDoc Sample
+name: Legacy Rehost Workshop
 
 modules:
     activate:
     - workshop-overview
     - setup-environment
-    - exercises/01-sample-content
+    - exercises/Introduction
+    - exercises/JBossRehost
+    - exercises/WebSphereRehost
+    - exercises/WebLogicRehost
+    - exercises/OpenShiftPipelines
     - workshop-summary
