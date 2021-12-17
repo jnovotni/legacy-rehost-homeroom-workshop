@@ -5,8 +5,16 @@ modules:
     setup-environment:
         name: Setup Environment
         exit_sign: Start Workshop
-    exercises/01-sample-content:
-        name: Sample Content
+    exercises/Introduction:
+        name: Workshop Introduction
+    exercises/JBossRehost:
+        name: Rehosting a JBoss Application
+    exercises/WebSphereRehost:
+        name: Rehosting a WebSphere Application
+    exercises/WebLogicRehost:
+        name: Rehosting a WebLogic Application
+    exercises/OpenShiftPipelines:
+        name: Deploying a WebSphere Application Using OpenShift Pipelines
     workshop-summary:
         name: Workshop Summary
         exit_sign: Finish Workshop
