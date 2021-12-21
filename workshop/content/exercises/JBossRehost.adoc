@@ -20,9 +20,15 @@ image::./Images/InstallOperator.png[image]
 
 === Create a Project
 
-Now we need to create a Project for the application. Go to the Project tab and click the `Create Project` button in the upper right hand corner. Enter the name `rehost-jboss` for the Name and click `Create`.
+Now we need to create a Project for the application. Go to the Project tab and click the `Create Project` button in the upper right hand corner. Enter the name `rehost-jboss-%username%` for the Name and click `Create`.
 
 image::./Images/CreateProject.png[image]
+
+You may also use the terminal 
+[source,bash,role=execute]
+----
+oc new-project rehost-jboss-%username%
+----
 
 === Deploy a MySQL Database
 
