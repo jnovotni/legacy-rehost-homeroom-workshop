@@ -4,9 +4,9 @@ LAB - Legacy Rehost Workshop
 ## Requirements 
 * Currently tested on OpenShift 4.8
 
-## Getting started
 
-**Deploy **
+## Getting started multi user workshop
+Deploy RHPDS `Service "OpenShift 4.8 Workshop"`
 
 **Create New project**
 ```
