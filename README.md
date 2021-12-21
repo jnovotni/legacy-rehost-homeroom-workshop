@@ -8,6 +8,11 @@ LAB - Legacy Rehost Workshop
 ## Getting started multi user workshop
 Deploy RHPDS `Service "OpenShift 4.8 Workshop"`
 
+**Login to OpenShift**
+```
+oc login --token=sha256~xXxXxXxXxXxXxXxXxXxXxXxXxXxXx --server=https://api.cluster-xxxxx.xxxxx.sandbox000.opentlc.com:6443
+```
+
 **Create New project**
 ```
 oc new-project workshops
