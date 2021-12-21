@@ -58,17 +58,13 @@ To delete the workshop instance run:
 
 
 Useful Commands
-
+-------------------
+```
 git clone --recurse-submodules https://github.com/jnovotni/legacy-rehost-homeroom-workshop
 
 .workshop/scripts/build-workshop.sh
 
-
-
-
 .workshop/scripts/delete-personal.sh --settings=develop
 
-
-
-
 .workshop/scripts/delete-spawner.sh --settings=hosted-workshop
+```
