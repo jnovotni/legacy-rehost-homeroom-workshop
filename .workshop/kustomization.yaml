@@ -4,10 +4,10 @@ kind: Kustomization
 bases:
 - https://github.com/openshift-homeroom/workshop-spawner/resources/overlays/learning-portal?ref=develop
 
-namePrefix: lab-asciidoc-sample-
+namePrefix: legacy-rehost-workshop-
 
 commonLabels:
-  app: lab-asciidoc-sample
+  app: legacy-rehost-workshop
 
 configMapGenerator:
 - name: spawner-environ
