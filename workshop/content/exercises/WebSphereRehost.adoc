@@ -2,7 +2,7 @@
 
 == Introduction
 
-Find IBM WebSphere sales pitch
+IBM WebSphere Application Server accelerates application delivery with a highly reliable Java Enterprise Edition-based runtime environment. It supports microservices and standards-based programming models designed to help you modernize at your own pace, gain visibility across workloads, analyze enterprise applications and advance your journey to Kubernetes.
 
 == Steps
 
