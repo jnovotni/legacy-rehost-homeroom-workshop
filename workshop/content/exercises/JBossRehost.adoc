@@ -24,7 +24,7 @@ Now we need to create a Project for the application. Go to the Project tab and c
 
 image::./Images/CreateProject.png[image]
 
-You may also use the terminal 
+You may also use the terminal
 [source,bash,role=execute]
 ----
 oc new-project rehost-jboss-%username%
@@ -39,6 +39,10 @@ image::./Images/SelectDeveloperView.png[image]
 We are going to add a MySQL database to our application. Click on the `+Add` button in the top left and then select the `Database` option.
 
 image::./Images/AddDatabase.png[image]
+
+Search for `mysql` and select the MySQL catalog item.
+
+image::./Images/JBossSearchMySQL.png[image]
 
 Update the following fields with the corresponding values then click `Create`.
 
@@ -56,7 +60,12 @@ image::./Images/DeployedDatabase.png[image]
 
 === Build the Application
 
-We are going to build our application using a Helm chart. Import the following yaml definition by clicking on the `+` sign in the upper right hand corner. This will configure the necessary Helm repo in our cluster.
+We are going to build our application using a Helm chart.
+
+////
+This section is not needed in OCP 4.8 as the needed helm charts are already provided out of the box
+
+Import the following yaml definition by clicking on the `+` sign in the upper right hand corner. This will configure the necessary Helm repo in our cluster.
 
 ```
 apiVersion: helm.openshift.io/v1beta1
@@ -68,16 +77,33 @@ spec:
   connectionConfig:
     url: https://jbossas.github.io/eap-charts/
 ```
+////
 
-The application will need to pull an image from the Reg Hat registry so we need to add a pull secret and name it `my-pull-secret`
+The application will need to pull an image from the Red Hat registry (registry.redhat.io) so we need to add a pull secret and name it `my-pull-secret`
 
-*Configure the cluster with a global pull secret so it's already there for everyone*
+Click on `Secrets` in the side menu, click on `Create` in the upper right, and select `Image pull secret`.
 
-Click on `+Add` in the side menu. Select Helm Charts. We will be using one of the Helm charts we just imported.
+Update the following fields with the corresponding values then click `Create`
 
-Select `Eap74 v1.1.0`
+```
+Secret name: my-pull-secret
+Registry server address: registry.redhat.io
+Username: <use your Red Hat registry username>
+Password: <use your Red Hat registry password>
+```
 
-image::./Images/EAPHelmCharts.png[image]
+image::./Images/JBossCreatePullSecret.png[image]
+
+//consider configuring the cluster with a global pull secret so it's already there for everyone
+
+//Click on `+Add` in the side menu. Select Helm Charts. We will be using one of the Helm charts we just imported.
+Now that we have our Pull Secret, we are ready to build our application.
+
+Click on `+Add` in the side menu. Select Helm Charts.
+
+Search for `eap` and Select `Eap74 v1.1.0`
+
+image::./Images/JBossSearchEAP.png[image]
 
 Select the `YAML View`
 
@@ -139,15 +165,46 @@ deploy:
     initialDelaySeconds: 10
 ```
 
-Go watch the application build.
+Click on the `Builds` tab on the side menu to see the BuildConfigs.
 
-It's building the application and then it's putting the application on a base image.
+image::./Images/JBossBuildConfigs.png[image]
 
-When the builds finish, we are ready to deploy our application.
+The eap74-build-artifacts build needs to finish running before the eap74 build will complete.
+
+Click on `eap74-build-artifacts` and then select the `Builds` tab to see the build's status.
+
+image::./Images/JBossEAP74BuildArtifactsBuildsTab.png[image]
+
+Once that build is complete, go back to the BuildConfigs and click on `eap74`. Select the `Builds` tab to see the build's status.
+
+image::./Images/JBossEAP74BuildsTab.png[image]
+
+//add an image to show what the build event tab looks like
+
+When the builds are done, we are ready to deploy our application.
 
 === Deploy the Application
 
-Let's deploy the application using the image we just built along with the options we set in our ConfigMap.
+Let's deploy the application using the image we just built.
+
+First, we need to set our MySQL options in a ConfigMap.
+
+```
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: eap-config
+data:
+  DATASOURCES: "TEST"
+  TEST_DATABASE: "eap"
+  TEST_NAME: "mysql"
+  TEST_DRIVER: "mysql"
+  TEST_JNDI: "java:/jdbc/mysql"
+  TEST_USERNAME: "eap"
+  TEST_PASSWORD: "demo"
+  TEST_URL: "jdbc:mysql://mysql:3306/eap"
+  TEST_NONXA: "true"
+```
 
 We are going to use the JBoss EAP Operator to help us deploy the application. Click on `+Add` in the side menu and choose `Operator Backed`.
 
