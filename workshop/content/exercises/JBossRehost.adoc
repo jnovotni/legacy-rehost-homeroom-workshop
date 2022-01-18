@@ -79,6 +79,8 @@ spec:
 ```
 ////
 
+////
+This section will not be needed since we will be mirroring the Red Hat registry
 The application will need to pull an image from the Red Hat registry (registry.redhat.io) so we need to add a pull secret and name it `my-pull-secret`
 
 Click on `Secrets` in the side menu, click on `Create` in the upper right, and select `Image pull secret`.
@@ -96,8 +98,8 @@ image::./Images/JBossCreatePullSecret.png[image]
 
 //consider configuring the cluster with a global pull secret so it's already there for everyone
 
-//Click on `+Add` in the side menu. Select Helm Charts. We will be using one of the Helm charts we just imported.
 Now that we have our Pull Secret, we are ready to build our application.
+////
 
 Click on `+Add` in the side menu. Select Helm Charts.
 
@@ -120,7 +122,6 @@ build:
   uri: 'https://github.com/deewhyweb/eap-quickstarts.git'
   ref: 7.4.x
   contextDir: kitchensink
-  pullSecret: my-pull-secret
   output:
     kind: ImageStreamTag
   env:
@@ -130,16 +131,16 @@ build:
       value: extensions
   triggers: {}
   s2i:
-    version: latest
+    version: 7.4.0
     arch: amd64
     jdk: '11'
     amd64:
       jdk8:
-        builderImage: registry.redhat.io/jboss-eap-7/eap74-openjdk8-openshift-rhel7
-        runtimeImage: registry.redhat.io/jboss-eap-7/eap74-openjdk8-runtime-openshift-rhel7
+        builderImage: <local-quay-registry>/jboss-eap-7/eap74-openjdk8-openshift-rhel7
+        runtimeImage: <local-quay-registry>/jboss-eap-7/eap74-openjdk8-runtime-openshift-rhel7
       jdk11:
-        builderImage: registry.redhat.io/jboss-eap-7/eap74-openjdk11-openshift-rhel8
-        runtimeImage: registry.redhat.io/jboss-eap-7/eap74-openjdk11-runtime-openshift-rhel8
+        builderImage: <local-quay-registry>/jboss-eap-7/eap74-openjdk11-openshift-rhel8
+        runtimeImage: <local-quay-registry>/jboss-eap-7/eap74-openjdk11-runtime-openshift-rhel8
 deploy:
   enabled: false
   replicas: 1
