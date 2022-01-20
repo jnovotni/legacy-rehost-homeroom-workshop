@@ -10,18 +10,21 @@ In this section, we will be walking you through the deployment of an existing We
 
 === Create Project
 
-Go to the `Projects` tab and click on `Create Project` in the top right corner. Name the project `rehost-websphere` and click `Create`.
+// just give the command to create the project  in the command line (don't worry about UI at all) or update directions about location of creation
+Go to the `Projects` tab and click on `Create Project` in the top right corner. Name the project `rehost-websphere-%username%` and click `Create`.
 
 image::./Images/WebSphere-CreateProject.png[image]
 
 === Deploy Application
 
+//you're logged in the developer view by default... no need to change view
 We are going to switch to Developer perspective for the remainder of this section.
 
 image::./Images/SelectDeveloperView.png[image]
 
 Click `+Add` in the upper left corner and select `From DockerFile`.
 
+//update image for add dockerfile
 image::./Images/AddDockerFile.png[image]
 
 Enter the GitHub Repo URL `https://github.com/gskumar1010/TA-klp-demo`. The fields will be auto-populated.
@@ -38,9 +41,11 @@ image::./Images/RoutingOptions.png[image]
 
 Click `Create`.
 
-We can watch the application deployment in the `Topology` tab. The deployment will take a couple of minutes. We can click the icon to see more information about the deployment.
+We can watch the application deployment in the `Topology` tab. The deployment will take a few minutes. We can click the icon to see more information about the deployment.
 
 image::./Images/WebSphereInProgress.png[image]
+
+//add details about viewing builds from that side menu in Topology view
 
 === Access and Test the Application
 
@@ -49,6 +54,8 @@ Once the deployment is complete, we can access the application by using the URL 
 image::./Images/WebSphereRoutes.png[image]
 
 Take the URL and add `/hitcount` to the end of it so that we hit our Hit Count application's end point.
+
+NOTE: Make sure you are using `http` instead of `https`.
 
 For example `http://ta-klp-demo-rehost-websphere.apps.ocp.shadowman.dev/hitcount`
 
@@ -59,6 +66,8 @@ image::./Images/HitCountApplication03.png[image]
 You will see a message indicating that the count has been incremented.
 
 image::./Images/IncrementedCount.png[image]
+
+To test the session persistence, open a different browser window and perform the same actions to increment the count. Notice the count is consistent across the browsers.
 
 == Review
 
