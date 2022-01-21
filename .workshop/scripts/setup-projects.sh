@@ -15,8 +15,9 @@ do
         oc adm policy add-cluster-role-to-user admin user$i -n websphere-pipeline-user$i	
 
 
-	oc new-project weblogic-operator-user$i
-	oc adm policy add-cluster-role-to-user admin user$i -n weblogic-operator-user$i
+	oc new-project sample-domain-user$i
+	oc adm policy add-cluster-role-to-user admin user$i -n sample-domain-user$i
+	oc label ns sample-domain-user$i weblogic-operator=enabled
 
 	oc new-project rehost-websphere-user$i
         oc adm policy add-cluster-role-to-user admin user$i -n rehost-websphere-user$i
