@@ -17,7 +17,7 @@ do
 
 	oc new-project sample-domain-user$i
 	oc adm policy add-cluster-role-to-user admin user$i -n sample-domain-user$i
-	oc label project sample-domain-user$i weblogic-operator=enabled
+	oc label ns sample-domain-user$i weblogic-operator=enabled
 
 	oc new-project rehost-websphere-user$i
         oc adm policy add-cluster-role-to-user admin user$i -n rehost-websphere-user$i
