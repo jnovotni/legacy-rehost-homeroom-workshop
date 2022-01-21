@@ -27,7 +27,7 @@ Now that we have install the operator, we need to create our pipeline.
 The first thing we need to do is create a project for our pipeline.
 
 Click on `Home` in the side menu and select `Projects`. Click on `Create Project` in the upper right corner. Name the project `websphere-pipeline-%username%`.
-NOTE: There may be already project created with name websphere-pipeline-%username%
+
 image::./Images/PipelinesCreateProject.png[image]
 
 Now we will create the pipeline resources. The IBM Transformation Advisor automatically generates the necessary yaml definitions for creating an OpenShift Pipeline that can deploy our WebSphere application.
@@ -199,8 +199,7 @@ spec:
 
 With all of our resources in place, we are ready to run our pipeline!
 
-Importing `03-pipeline-run.yaml` will cause the pipeline to run and build our application. The `image-url` parameter needs to be updated with the correct project and application name. This has already been in the following yaml.
-Note: Change the image-url value below from websphere-pipeline/websphere-pipeline:latest to websphere-pipeline%username%/websphere-pipeline:latest 
+Importing `03-pipeline-run.yaml` will cause the pipeline to run and build our application. 
 
 ```
 apiVersion: tekton.dev/v1beta1
@@ -222,7 +221,7 @@ spec:
   - name: repo-dockerfile
     value: Dockerfile
   - name: image-url
-    value: image-registry.openshift-image-registry.svc:5000/websphere-pipeline/websphere-pipeline:latest
+    value: image-registry.openshift-image-registry.svc:5000/websphere-pipeline-%username%/websphere-pipeline:latest
 ```
 
 The process will take a couple of minutes. You can view the pipeline's status in the UI.
