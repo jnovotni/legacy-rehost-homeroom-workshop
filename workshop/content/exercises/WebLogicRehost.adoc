@@ -164,7 +164,7 @@ Monitor the pods as they start up, ensuring that the `domain1-admin-server`, `do
 
 [source,bash,role=execute]
 ----
-oc get pods -n sample-domain1 -w
+oc get pods -n sample-domain-%username% -w
 ----
 
 The output will look similar to:
