@@ -8,10 +8,11 @@ IBM WebSphere Application Server accelerates application delivery with a highly 
 
 In this section, we will be walking you through the deployment of an existing WebSphere application onto OpenShift without making any modifications to the code.
 
-=== Create Project
+=== Select Project
 
 // just give the command to create the project  in the command line (don't worry about UI at all) or update directions about location of creation
-Go to the `Projects` tab and click on `Create Project` in the top right corner. Name the project `rehost-websphere-%username%` and click `Create`.
+Go to the `Projects` tab and select the project `rehost-websphere-%username%` and click `Create`.
+Note: In case the project does not exist you can choose 'Create Project' on the top of the dropdown selection
 
 image::./Images/WebSphere-CreateProject.png[image]
 
