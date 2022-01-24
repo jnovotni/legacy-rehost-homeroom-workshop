@@ -238,6 +238,9 @@ With all of our resources in place, we are ready to run our pipeline!
 
 Importing `03-pipeline-run.yaml` will cause the pipeline to run and build our application.
 
+In the OpenShift web UI, click on the `+` in the upper right hand corner to import our yaml. Copy and paste the yaml below and then click `Create`.
+
+////
 Before importing the pipeline definition, we need to update the image-url so that it uses our project.
 
 Run the following command to begin editing the yaml file:
@@ -246,8 +249,10 @@ Run the following command to begin editing the yaml file:
 vi pipeline/openshift/03-pipeline-run.yaml
 ----
 
-In the last line of the file, replace the current value of `image-registry.openshift-image-registry.svc:5000/myproject/defaultapplication:latest` with the following value:
-`image-registry.openshift-image-registry.svc:5000/websphere-pipeline-%username%/websphere-pipeline:latest`
+Press `i` to enter insert mode. In the last line of the file, replace the current value of `image-registry.openshift-image-registry.svc:5000/myproject/defaultapplication:latest` with the following value:
+```
+image-registry.openshift-image-registry.svc:5000/websphere-pipeline-%username%/websphere-pipeline:latest
+```
 
 After you have made your change, press `esc` and enter `:wq` to save and exit.
 
@@ -279,7 +284,6 @@ spec:
   - name: image-url
     value: image-registry.openshift-image-registry.svc:5000/websphere-pipeline-%username%/websphere-pipeline:latest
 ```
-////
 
 The process will take a couple of minutes. You can view the pipeline's status in the UI.
 
