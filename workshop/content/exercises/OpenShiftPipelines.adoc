@@ -13,7 +13,7 @@ In this section, we will be walking you through the deployment of an OpenShift P
 The first step is to deploy the OpenShift Pipeline Operator from the OperatorHub.
 
 In the side menu, click on `Operators` and select `OperatorHub`. Search for `OpenShift Pipelines`.
-
+NOTE: For this exercise Operator is already installed it will show in the installed liat
 image::./Images/PipelinesOperatorHub.png[image]
 
 Install the OpenShift Pipeline Operator using the default settings.
@@ -26,7 +26,7 @@ Now that we have install the operator, we need to create our pipeline.
 
 The first thing we need to do is create a project for our pipeline.
 
-Click on `Home` in the side menu and select `Projects`. Click on `Create Project` in the upper right corner. Name the project `websphere-pipeline`.
+Click on `Home` in the side menu and select `Projects`. Click on `Create Project` in the upper right corner. Name the project `websphere-pipeline-%username%`.
 
 image::./Images/PipelinesCreateProject.png[image]
 
@@ -39,6 +39,7 @@ We need to import each of these yaml files into OpenShift using the `+` icon in 
 image::./Images/ImportYaml.png[image]
 
 `00-apply-manifest-task.yaml` and `00-update-deployment_task.yaml` are custom tasks used by the pipeline.
+Click on + , copy the YAML file and click on Create 
 
 ```
 apiVersion: tekton.dev/v1beta1
@@ -64,6 +65,7 @@ spec:
       echo -----------------------------------
 ```
 
+Click on + , copy the YAML file and click on Create 
 ```
 apiVersion: tekton.dev/v1alpha1
 kind: Task
@@ -92,6 +94,7 @@ spec:
 ```
 
 `01-pipeline.yaml` is the definition for the pipeline itself.
+Click on + , copy the YAML file and click on Create 
 
 ```
 apiVersion: tekton.dev/v1beta1
@@ -177,6 +180,7 @@ spec:
 ```
 
 `pv-claim.yaml` will create the persistent storage that the pipeline uses for persistent storage between tasks.
+Click on + , copy the YAML file and click on Create 
 
 ```
 apiVersion: v1
@@ -195,7 +199,7 @@ spec:
 
 With all of our resources in place, we are ready to run our pipeline!
 
-Importing `03-pipeline-run.yaml` will cause the pipeline to run and build our application. The `image-url` parameter needs to be updated with the correct project and application name. This has already been in the following yaml.
+Importing `03-pipeline-run.yaml` will cause the pipeline to run and build our application. 
 
 ```
 apiVersion: tekton.dev/v1beta1
@@ -211,13 +215,13 @@ spec:
       claimName: shared-task-storage
   params:
   - name: repo-url
-    value: https://github.com/IBMTechSales/TA-klp-demo.git
+    value: https://github.com/gskumar1010/TA-klp-demo.git
   - name: branch-name
     value: master
   - name: repo-dockerfile
     value: Dockerfile
   - name: image-url
-    value: image-registry.openshift-image-registry.svc:5000/websphere-pipeline/websphere-pipeline:latest
+    value: image-registry.openshift-image-registry.svc:5000/websphere-pipeline-%username%/websphere-pipeline:latest
 ```
 
 The process will take a couple of minutes. You can view the pipeline's status in the UI.
@@ -245,6 +249,7 @@ image::./Images/PipelinesRoutes.png[image]
 Take the URL and add `/hitcount` to the end of it so that we hit our Hit Count application's end point. Paste this into your browser to access the application.
 
 For example `http://defaultapplication-websphere-pipelines.apps.ocp.shadowman.dev/hitcount`
+NOTE: Make sure you are using `http` instead of `https`.
 
 Select `Enterprise Java Bean (CMP)` as the method of execution, `Global Namespace` as the lookup method, and `Commit` as the transaction type. Click `Increment`.
 
