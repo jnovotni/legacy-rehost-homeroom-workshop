@@ -163,7 +163,7 @@ data:
   TEST_NONXA: "true"
 EOF
 ----
-\\\\
+////
 Click on the `+` symbol in the upper right hand corner of the web UI to import the following YAML. Paste the yaml below and click `Create`.
 ```
 kind: ConfigMap
@@ -181,7 +181,7 @@ data:
   TEST_URL: "jdbc:mysql://mysql:3306/eap"
   TEST_NONXA: "true"
 ```
-\\\\
+////
 We are going to use the JBoss EAP Operator to help us deploy the application. Click on `+Add` in the side menu and choose `Operator Backed`.
 
 Select `WildFlyServer` and click `Create`.
