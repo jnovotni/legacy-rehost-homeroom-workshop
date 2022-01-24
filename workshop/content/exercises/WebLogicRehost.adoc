@@ -6,9 +6,9 @@ The WebLogic Kubernetes Operator (the “operator”) supports running your WebL
 == Steps
 In this section we're going to be walking you through a WebLogic Server deployment in OpenShift using the WebLogic Kubernetes Operator. This will not require any code changes to the original application.
 
-=== Part 1: Clone this Repository
+=== Part 1: Clone the Repository
 
-On your local machine, clone this repository by running the following command:
+Run the following command to clone the necessary repository:
 
 [source,bash,role=execute]
 ----
