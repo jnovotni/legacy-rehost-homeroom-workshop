@@ -139,6 +139,27 @@ Let's deploy the application using the image we just built.
 
 First, we need to set our MySQL options in a ConfigMap. Make sure you are in the rehost-jboss-%username% project.
 
+Run the following command to create the ConfigMap.
+[source,bash,role=execute]
+----
+cat <<EOF | oc apply -f -
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: eap-config
+data:
+  DATASOURCES: "TEST"
+  TEST_DATABASE: "eap"
+  TEST_NAME: "mysql"
+  TEST_DRIVER: "mysql"
+  TEST_JNDI: "java:/jdbc/mysql"
+  TEST_USERNAME: "eap"
+  TEST_PASSWORD: "demo"
+  TEST_URL: "jdbc:mysql://mysql:3306/eap"
+  TEST_NONXA: "true"
+EOF
+----
+\\\\
 Click on the `+` symbol in the upper right hand corner of the web UI to import the following YAML. Paste the yaml below and click `Create`.
 ```
 kind: ConfigMap
@@ -156,7 +177,7 @@ data:
   TEST_URL: "jdbc:mysql://mysql:3306/eap"
   TEST_NONXA: "true"
 ```
-
+\\\\
 We are going to use the JBoss EAP Operator to help us deploy the application. Click on `+Add` in the side menu and choose `Operator Backed`.
 
 Select `WildFlyServer` and click `Create`.
