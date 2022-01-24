@@ -22,9 +22,10 @@ Then, change directory to the newly cloned repository by running the following c
 cd weblogic-operator-on-openshift/
 ----
 
-=== Part 2: Deploy the WebLogic Operator
+=== Part 2: Create a Project for the Domain
+The cluster admin has already deployed the WebLogic operator for you and the operator will be managing namespaces that are labelled with `weblogic-operator=enabled`.
 
-Login to OpenShift using your credentials. To get a token to login, follow these directions:
+First, we will  need to login to OpenShift using your credentials. To get a token to login, follow these directions:
 //get a screenshot for this
 1. In the OpenShift Web Console, click on your name in the top right hand corner and select "Copy Login Command".
 2. Once you authenticate, select "Display Token"
@@ -47,73 +48,6 @@ You have access to 70 projects, the list has been suppressed. You can list all p
 
 Using project "default".
 ```
-
-Create a project (namespace) to install the WebLogic Kubernetes Operator into by running the following command:
-
-[source,bash,role=execute]
-----
-oc new-project weblogic-operator-%username%
-----
-
-Create a service account for the operator to use by running the following command:
-
-[source,bash,role=execute]
-----
-oc create serviceaccount -n weblogic-operator-%username% weblogic-operator-sa
-----
-
-Install the operator using Helm by running the following command:
-
-[source,bash,role=execute]
-----
-helm install weblogic-operator weblogic-kubernetes-operator/kubernetes/charts/weblogic-operator \
-  --namespace weblogic-operator-%username% \
-  --set image=ghcr.io/oracle/weblogic-kubernetes-operator:3.2.2 \
-  --set serviceAccount=weblogic-operator-sa \
-  --set "enableClusterRoleBinding=true" \
-  --set "domainNamespaceSelectionStrategy=LabelSelector" \
-  --set "domainNamespaceLabelSelector=weblogic-operator\=enabled" \
-  --wait
-----
-
-If successful, the output will be similar to:
-
-```
-NAME: weblogic-operator
-LAST DEPLOYED: Wed May 19 11:30:49 2021
-NAMESPACE: weblogic-operator-%username%
-STATUS: deployed
-REVISION: 1
-TEST SUITE: None
-```
-
-The Helm command we ran configured the operator to manage domains in any OpenShift project (namespace) with the label, “weblogic-operator=enabled”.
-
-Validate the operator deployment by running the following command:
-
-[source,bash,role=execute]
-----
-oc get pods -n weblogic-operator
-----
-
-If successful, the output will be similar to:
-
-```
-NAME                                 READY   STATUS    RESTARTS   AGE
-weblogic-operator-6bb58697b7-2zbql   1/1     Running   0          87s
-```
-
-Ensure that the pod is "Running" and is "Ready (1/1)".
-
-If you look at the pod logs, you may see the error message:
-
-```
-Operator cannot proceed, as the Custom Resource Definition for ''domains.weblogic.oracle'' is not installed.
-```
-
-However, once there are domains for the operator to manage, this message should disappear.
-
-### Part 3: Create a Project for the Domain
 
 Create a project (namespace) to deploy our domain to by running the following command:
 
@@ -149,7 +83,7 @@ The secret domain1-weblogic-credentials has been successfully created in the sam
 
 > Important note: if you change the username and password (as you should in your enterprise environment) in the above commands, you will need to also change them in the `properties/docker-build/adminpass.properties`, `properties/docker-build/adminuser.properties`, and `properties/docker-run/security.properties` files.
 
-### Part 4: Deploy the Domain
+=== Part 3: Deploy the Domain
 
 The Domain image has already been built with our application and is hosted on our Quay registry. We will be using that image for this deployment.
 
@@ -202,7 +136,7 @@ domain1-managed-server-2     1/1     Running             0          42s
 
 Once you see the three containers in "Running" and "Ready (1/1)" status, you can Control+c out of the command.
 
-### Part 5: View the Administration Portal and Application
+=== Part 4: View the Administration Portal and Application
 
 We now need to expose both the admin server and the application frontend, using OpenShift's built-in ingress controller. This will enable us to access the admin console, use tooling like WLST, and access our newly deployed WebLogic application. To expose the operator-created services, by running the following command:
 
