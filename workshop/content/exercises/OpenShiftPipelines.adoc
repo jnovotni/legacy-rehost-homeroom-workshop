@@ -8,27 +8,19 @@ OpenShift Pipelines are neat. You should use them to deploy your WebSphere apps.
 
 In this section, we will be walking you through the deployment of an OpenShift Pipeline that we will use to deploy your WebSphere application.
 
-=== Install the Pipeline Operator
-
-The first step is to deploy the OpenShift Pipeline Operator from the OperatorHub.
-
-In the side menu, click on `Operators` and select `OperatorHub`. Search for `OpenShift Pipelines`.
-NOTE: For this exercise Operator is already installed it will show in the installed liat
-image::./Images/PipelinesOperatorHub.png[image]
-
-Install the OpenShift Pipeline Operator using the default settings.
-
-image::./Images/PipelinesOperatorInstall.png[image]
-
 === Create Pipeline Resources
 
-Now that we have install the operator, we need to create our pipeline.
+The cluster admin has already installed the OC Pipelines operator. It is time to create our pipeline.
 
-The first thing we need to do is create a project for our pipeline.
+The first thing we need to do is create a project for our pipeline. Run the following command to create the project.
+[source,bash,role=execute]
+----
+oc new-project websphere-pipelines-%username%
+----
 
-Click on `Home` in the side menu and select `Projects`. Click on `Create Project` in the upper right corner. Name the project `websphere-pipeline-%username%`.
+\\Click on `Home` in the side menu and select `Projects`. Click on `Create Project` in the upper right corner. Name the project `websphere-pipeline-%username%`.
 
-image::./Images/PipelinesCreateProject.png[image]
+\\image::./Images/PipelinesCreateProject.png[image]
 
 Now we will create the pipeline resources. The IBM Transformation Advisor automatically generates the necessary yaml definitions for creating an OpenShift Pipeline that can deploy our WebSphere application.
 
@@ -69,7 +61,7 @@ EOF
 Run the following command to create the update deployment task.
 [source,bash,role=execute]
 ----
-cat<<EOF | oc apply -f
+cat<<EOF | oc apply -f -
 apiVersion: tekton.dev/v1alpha1
 kind: Task
 metadata:
