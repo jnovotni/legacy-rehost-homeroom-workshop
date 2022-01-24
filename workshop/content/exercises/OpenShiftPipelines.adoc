@@ -34,9 +34,9 @@ The first thing we need to do is create a project for our pipeline. Run the foll
 oc new-project websphere-pipelines-%username%
 ----
 
-\\Click on `Home` in the side menu and select `Projects`. Click on `Create Project` in the upper right corner. Name the project `websphere-pipeline-%username%`.
+//Click on `Home` in the side menu and select `Projects`. Click on `Create Project` in the upper right corner. Name the project `websphere-pipeline-%username%`.
 
-\\image::./Images/PipelinesCreateProject.png[image]
+//image::./Images/PipelinesCreateProject.png[image]
 
 Now we will create the pipeline resources. The IBM Transformation Advisor automatically generates the necessary yaml definitions for creating an OpenShift Pipeline that can deploy our WebSphere application.
 
@@ -49,27 +49,27 @@ We need to create each of these resources using the provided yaml definitions.
 Run the following command to create the apply manifest task.
 [source,bash,role=execute]
 ----
-oc apply -f pipelines/openshift/00-apply-manifest-task.yaml
+oc apply -f pipeline/openshift/00-apply-manifest-task.yaml
 ----
 
 Run the following command to create the update deployment task.
 [source,bash,role=execute]
 ----
-oc apply -f pipelines/openshift/00-update-deployment_task.yaml
+oc apply -f pipeline/openshift/00-update-deployment_task.yaml
 ----
 
 `01-pipeline.yaml` is the definition for the pipeline itself. Run the following command to create the pipeline.
 [source,bash,role=execute]
 ----
-oc apply -f pipelines/openshift/01-pipeline.yaml
+oc apply -f pipeline/openshift/01-pipeline.yaml
 ----
 
 `pv-claim.yaml` will create the persistent storage that the pipeline uses for persistent storage between tasks. Run the following command to create the storage.
 [source,bash,role=execute]
 ----
-oc apply -f pipelines/openshift/pv-claim.yaml
+oc apply -f pipeline/openshift/pv-claim.yaml
 ----
-\\\\
+////
 We need to import each of these yaml files into OpenShift using the `+` icon in the upper right hand corner of the OpenShift UI and copying and pasting the contents of each file into the UI.
 
 image::./Images/ImportYaml.png[image]
@@ -230,7 +230,7 @@ spec:
   accessModes:
     - ReadWriteOnce
 ```
-\\\\
+////
 
 === Run the Pipeline
 
@@ -243,7 +243,7 @@ Before importing the pipeline definition, we need to update the image-url so tha
 Run the following command to begin editing the yaml file:
 [source,bash,role=execute]
 ----
-vi pipelines/openshift/03-pipeline-run.yaml
+vi pipeline/openshift/03-pipeline-run.yaml
 ----
 
 In the last line of the file, replace the current value of `image-registry.openshift-image-registry.svc:5000/myproject/defaultapplication:latest` with the following value:
@@ -254,9 +254,9 @@ After you have made your change, press `esc` and enter `:wq` to save and exit.
 Run the following command to build the application:
 [source,bash,role=execute]
 ----
-oc apply -f pipelines/openshift/03-pipeline-run.yaml
+oc apply -f pipeline/openshift/03-pipeline-run.yaml
 ----
-\\\\
+////
 ```
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
@@ -279,7 +279,7 @@ spec:
   - name: image-url
     value: image-registry.openshift-image-registry.svc:5000/websphere-pipeline-%username%/websphere-pipeline:latest
 ```
-\\\\
+////
 
 The process will take a couple of minutes. You can view the pipeline's status in the UI.
 
