@@ -282,7 +282,7 @@ spec:
   - name: repo-dockerfile
     value: Dockerfile
   - name: image-url
-    value: image-registry.openshift-image-registry.svc:5000/websphere-pipeline-%username%/websphere-pipeline:latest
+    value: image-registry.openshift-image-registry.svc:5000/websphere-pipelines-%username%/websphere-pipeline:latest
 ```
 
 The process will take a couple of minutes. You can view the pipeline's status in the UI.
