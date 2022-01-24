@@ -2,7 +2,7 @@
 
 == Introduction
 
-OpenShift Pipelines are neat. You should use them to deploy your WebSphere apps. TA generates a basic pipeline that you can use as a starting point.
+OpenShift Pipelines is a cloud-native, continuous integration and continuous delivery (CI/CD) solution based on Kubernetes resources. It uses Tekton building blocks to automate deployments across multiple platforms by abstracting away the underlying implementation details. Every task runs as a pod, and each step runs as a container within that pod. You can use OpenShift pipelines to deploy your WebSphere apps. TA generates a basic pipeline that you can use as a starting point.
 
 == Steps
 
