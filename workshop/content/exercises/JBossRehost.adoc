@@ -22,7 +22,11 @@ oc new-project rehost-jboss-%username%
 
 === Deploy a MySQL Database
 
-We are going to add a MySQL database to our application. Click on the `+Add` button in the top left and then select the `Database` option.
+We are going to add a MySQL database to our application.
+
+In the OpenShift UI, make sure you are in the Developer perspective and make sure you are in the rehost-jboss-%username% project.
+
+ Click on the `+Add` button in the top left and then select the `Database` option.
 
 //update the image
 image::./Images/AddDatabase.png[image]
