@@ -88,7 +88,7 @@ The secret domain1-weblogic-credentials has been successfully created in the sam
 The Domain image has already been built with our application and is hosted on our Quay registry. We will be using that image for this deployment.
 
 Create the WebLogic Domain Custom Resource (CR) object in OpenShift by running the following command:
-
+NOTE: The image must be updated to use the correct url and image namespace must be updated to sample-domain-%username% before running the following command.
 [source,bash,role=execute]
 ----
 oc apply -f sample-domain.yaml
