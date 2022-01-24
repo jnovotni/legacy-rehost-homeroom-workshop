@@ -67,7 +67,7 @@ oc apply -f pipeline/openshift/01-pipeline.yaml
 `pv-claim.yaml` will create the persistent storage that the pipeline uses for persistent storage between tasks. Run the following command to create the storage.
 [source,bash,role=execute]
 ----
-oc apply -f pipeline/openshift/pv-claim.yaml
+oc apply -f pipeline/openshift/02-pv-claim.yaml
 ----
 ////
 We need to import each of these yaml files into OpenShift using the `+` icon in the upper right hand corner of the OpenShift UI and copying and pasting the contents of each file into the UI.
