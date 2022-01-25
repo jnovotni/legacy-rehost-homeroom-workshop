@@ -23,7 +23,10 @@ oc new-project rehost-jboss-%username%
 
 We are going to add a MySQL database to our application.
 
-Open the OpenShift UI at console-openshift-console.%cluster_subdomain%
+Open the OpenShift UI at:
+```
+console-openshift-console.%cluster_subdomain%
+```
 
 Make sure you are in the Developer perspective and make sure you are in the rehost-jboss-%username% project.
 
@@ -32,7 +35,7 @@ Click on the `+Add` button in the top left and then select the `Database` option
 //update the image
 image::./Images/AddDatabase.png[image]
 
-Search for `mysql` and select the MySQL catalog item.
+Search for `mysql` and select the MySQL catalog item. Click on `Instantiate Template`.
 
 image::./Images/JBossSearchMySQL.png[image]
 
@@ -50,13 +53,15 @@ The database will take a moment to finish deploying. You can view it's progress 
 
 image::./Images/DeployedDatabase.png[image]
 
+ Under the `Pods` sections, there is a link to `view logs`. Click on `view logs` for detailed information about the database's progress.
+
 === Build the Application
 
 We are going to build our application using a Helm chart.
 
 Click on `+Add` in the side menu. Select Helm Charts.
 
-Search for `eap` and Select `Eap74 v1.1.0`
+Search for `eap` and Select `Eap74 v1.1.0`. Click on `Install Helm Chart`.
 
 image::./Images/JBossSearchEAP.png[image]
 
