@@ -64,7 +64,6 @@ Select the `YAML View`
 image::./Images/EAPHelmChartYAMLView.png[image]
 
 Overwirte the existing yaml with the following yaml definition and click `Install`.
-NOTE: You need to update <local-quay-registry> with the appropriate url!
 
 ```
 image:
@@ -89,11 +88,11 @@ build:
     jdk: '11'
     amd64:
       jdk8:
-        builderImage: <local-quay-registry>/jboss-eap-7/eap74-openjdk8-openshift-rhel7
-        runtimeImage: <local-quay-registry>/jboss-eap-7/eap74-openjdk8-runtime-openshift-rhel7
+        builderImage: local-registry-quay-quay.%cluster_subdomain%/jboss-eap-7/eap74-openjdk8-openshift-rhel7
+        runtimeImage: local-registry-quay-quay.%cluster_subdomain%/jboss-eap-7/eap74-openjdk8-runtime-openshift-rhel7
       jdk11:
-        builderImage: <local-quay-registry>/jboss-eap-7/eap74-openjdk11-openshift-rhel8
-        runtimeImage: <local-quay-registry>/jboss-eap-7/eap74-openjdk11-runtime-openshift-rhel8
+        builderImage: local-registry-quay-quay.%cluster_subdomain%/jboss-eap-7/eap74-openjdk11-openshift-rhel8
+        runtimeImage: local-registry-quay-quay.%cluster_subdomain%/jboss-eap-7/eap74-openjdk11-runtime-openshift-rhel8
 deploy:
   enabled: false
   replicas: 1
@@ -205,7 +204,11 @@ We can watch the application's deployment progress in the Topology view. Click o
 
 image::./Images/TopologyView.png[image]
 
-When the application has finished deploying, we can visit the URL, provided under `Routes`, and see the login page.
+When the application has finished deploying, we can visit the URL, which can be found under `Routes`, and see the login page.
+
+```
+kitchensink-route-rehost-jboss-%username%.%cluster_subdomain%
+```
 
 image::./Images/ApplicationLoginScreen.png[image]
 
