@@ -301,15 +301,22 @@ image::./Images/PipelinesRunCompleted.png[image]
 
 === Access and Test the Application
 
-Once the deployment is complete, we can access the application by using its route.
+//Once the deployment is complete, we can access the application by using its route.
 
-On the side menu, click on `Networking` and select `Routes`. You should see the route for the application that we just deployed. Under `Location`, you will see the application's URL.
+//On the side menu, click on `Networking` and select `Routes`. You should see the route for the application that we just deployed. Under `Location`, you will see the application's URL.
 
-image::./Images/PipelinesRoutes.png[image]
+//image::./Images/PipelinesRoutes.png[image]
 
-Take the URL and add `/hitcount` to the end of it so that we hit our Hit Count application's end point. Paste this into your browser to access the application.
+//Take the URL and add `/hitcount` to the end of it so that we hit our Hit Count application's end point. Paste this into your browser to access the application.
 
-For example `http://defaultapplication-websphere-pipelines.apps.ocp.shadowman.dev/hitcount`
+//For example `http://defaultapplication-websphere-pipelines.apps.ocp.shadowman.dev/hitcount`
+
+Once the deployment is complete we can access the application at the following url:
+
+```
+http://ta-klp-demo-rehost-websphere-%username%.%cluster_subdomain%
+```
+
 NOTE: Make sure you are using `http` instead of `https`.
 
 Select `Enterprise Java Bean (CMP)` as the method of execution, `Global Namespace` as the lookup method, and `Commit` as the transaction type. Click `Increment`.

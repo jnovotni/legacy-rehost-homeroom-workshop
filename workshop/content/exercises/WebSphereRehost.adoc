@@ -49,15 +49,21 @@ image::./Images/WebSphereInProgress.png[image]
 
 === Access and Test the Application
 
-Once the deployment is complete, we can access the application by using the URL under the Routes section of the Deployment information.
+//Once the deployment is complete, we can access the application by using the URL under the Routes section of the Deployment information.
 
-image::./Images/WebSphereRoutes.png[image]
+//image::./Images/WebSphereRoutes.png[image]
 
-Take the URL and add `/hitcount` to the end of it so that we hit our Hit Count application's end point.
+//Take the URL and add `/hitcount` to the end of it so that we hit our Hit Count application's end point.
+
+Once the deployment is complete we can access the application at the following url:
+
+```
+http://ta-klp-demo-rehost-websphere-%username%.%cluster_subdomain%
+```
 
 NOTE: Make sure you are using `http` instead of `https`.
 
-For example `http://ta-klp-demo-rehost-websphere.apps.ocp.shadowman.dev/hitcount`
+//For example `http://ta-klp-demo-rehost-websphere.apps.ocp.shadowman.dev/hitcount`
 
 Select `Enterprise Java Bean (CMP)` as the method of execution, `Global Namespace` as the lookup method, and `Commit` as the transaction type. Click `Increment`.
 
