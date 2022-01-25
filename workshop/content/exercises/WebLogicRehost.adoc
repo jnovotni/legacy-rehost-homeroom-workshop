@@ -89,7 +89,7 @@ metadata:
 spec:
   domainHome: /u01/oracle/user_projects/domains/domain1
   domainHomeSourceType: Image
-  image: "local-registry-quay-quay.%cluster_subdomain%/sample-domain1-%username%/my-domain1-image:1.0"
+  image: "local-registry-quay-quay.%cluster_subdomain%/oracle/application-image:1.0"
   imagePullPolicy: "IfNotPresent"
   webLogicCredentialsSecret:
     name: domain1-weblogic-credentials
@@ -187,25 +187,32 @@ oc expose service domain1-admin-server-ext --port=default
 oc expose service domain1-cluster-cluster-1 --port=default
 ----
 
-You are now ready to access the admin console or the application in your web browser.
+You are now ready to access the admin console or the application in your web browser at the following url:
+```
+http://domain1-admin-server-ext-sample-domain-%username%.%cluster_subdomain%/console
+```
 
-To get the host for the admin console, run the following command:
+//To get the host for the admin console, run the following command:
 
-[source,bash,role=execute]
-----
-oc get route domain1-admin-server-ext -n sample-domain-%username% --template='{{ .spec.host }}'
-----
+//[source,bash,role=execute]
+//----
+//oc get route domain1-admin-server-ext -n sample-domain-%username% --template='{{ .spec.host }}'
+//----
 
-Once you have the host, going to `http://{{ host }}/console` will allow you to authenticate with the credentials created previously.
+//Once you have the host, going to `http://{{ host }}/console` will allow you to authenticate with the credentials created previously.
 
-To get the host for the WebLogic application, run the following command:
+//To get the host for the WebLogic application, run the following command:
+You can access the WebLogic application at the following url:
+```
+http://domain1-cluster-cluster-1-sample-domain-%username%.%cluster_subdomain%/testwebapp
+```
 
-[source,bash,role=execute]
-----
-oc get route domain1-cluster-cluster-1 -n sample-domain-%username% --template='{{ .spec.host }}'
-----
+//[source,bash,role=execute]
+//----
+//oc get route domain1-cluster-cluster-1 -n sample-domain-%username% --template='{{ .spec.host }}'
+//----
 
-Once you have the host, going to `http://{{ host }}/testwebapp` will show you our test application that was deployed to WebLogic.
+//Once you have the host, going to `http://{{ host }}/testwebapp` will show you our test application that was deployed to WebLogic.
 
 == Review
 In this section we were able to deploy the WebLogic Operator as well as a WebLogic Domain onto OpenShift without modifying any of the application's code.
