@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# If there are 25 users
+# If there are 50 users
 
 i=0
-while [ $i -ne 25 ]
+while [ $i -ne 50 ]
 do
         i=$(($i+1))
         echo "user$i"
