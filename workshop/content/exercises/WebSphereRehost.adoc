@@ -58,7 +58,7 @@ image::./Images/WebSphereInProgress.png[image]
 Once the deployment is complete we can access the application at the following url:
 
 ```
-http://ta-klp-demo-rehost-websphere-%username%.%cluster_subdomain%
+http://ta-klp-demo-rehost-websphere-%username%.%cluster_subdomain%/hitcount
 ```
 
 NOTE: Make sure you are using `http` instead of `https`.
