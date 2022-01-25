@@ -87,13 +87,69 @@ The secret domain1-weblogic-credentials has been successfully created in the sam
 
 The Domain image has already been built with our application and is hosted on our Quay registry. We will be using that image for this deployment.
 
-Create the WebLogic Domain Custom Resource (CR) object in OpenShift by running the following command:
+//Create the WebLogic Domain Custom Resource (CR) object in OpenShift by running the following command:
 
-> NOTE: The image must be updated to use the correct url and image namespace must be updated to sample-domain-%username% before running the following command.
+We are going to create the WebLogic Domain Custom Resource (CR) object in OpenShift.
+
+Run the following command to update our domain definition:
+
 [source,bash,role=execute]
 ----
-oc apply -f sample-domain.yaml
+echo "apiVeresion: "weblogic.oracle/v8"
+kind: Domain
+metadata:
+  name: domain1
+  namespace: sample-domain1-%username%
+  labels:
+    weblogic.domainUID: domain1
+spec:
+  domainHome: /u01/oracle/user_projects/domains/domain1
+  domainHomeSourceType: Image
+  image: "local-registry-quay-quay.%cluster_subdomain%/sample-domain1-%username%/my-domain1-image:1.0"
+  imagePullPolicy: "IfNotPresent"
+  webLogicCredentialsSecret:
+    name: domain1-weblogic-credentials
+  includeServerOutInPodLog: true
+  serverStartPolicy: "IF_NEEDED"
+  serverPod:
+    env:
+    - name: JAVA_OPTIONS
+      value: "-Dweblogic.StdoutDebugEnabled=false"
+    - name: USER_MEM_ARGS
+      value: "-Xms256m -Xmx512m -Djava.security.egd=file:/dev/./urandom "
+    requests:
+      cpu: "250m"
+      memory: "768Mi"
+  adminServer:
+    serverStartState: "RUNNING"
+    adminService:
+      channels:
+       - channelName: default
+         nodePort: 30701
+  clusters:
+  - clusterName: cluster-1
+    serverStartState: "RUNNING"
+    serverPod:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: "weblogic.clusterName"
+                      operator: In
+                      values:
+                        - $(CLUSTER_NAME)
+                topologyKey: "kubernetes.io/hostname"
+    replicas: 2" > sample-domain.yaml
 ----
+
+//> NOTE: The image must be updated to use the correct url and image namespace must be updated to sample-domain-%username% before running the following command.
+//[source,bash,role=execute]
+//----
+//oc apply -f sample-domain.yaml
+//----
 
 Monitor the pods as they start up, ensuring that the `domain1-admin-server`, `domain1-managed-server-1`, and `domain1-managed-server-2` are all "Running" and "Ready (1/1)". To do so, run the following command:
 
