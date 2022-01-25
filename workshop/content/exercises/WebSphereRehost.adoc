@@ -10,14 +10,18 @@ In this section, we will be walking you through the deployment of an existing We
 
 === Create Project
 
-// just give the command to create the project  in the command line (don't worry about UI at all) or update directions about location of creation
-Go to the `Projects` tab and click on `Create Project` in the top right corner. Name the project `rehost-websphere-%username%` and click `Create`.
-
-image::./Images/WebSphere-CreateProject.png[image]
+To create the project for our application, run the following command:
+```
+oc create rehost-websphere-%username%
+```
 
 === Deploy Application
 
-//you're logged in the developer view by default... no need to change view
+Open the OpenShift UI at:
+```
+console-openshift-console.%cluster_subdomain%
+```
+
 We are going to be using the Developer perspective for the remainder of this section. If you are not already in the Developer perspective, switch over now.
 
 image::./Images/SelectDeveloperView.png[image]
@@ -31,11 +35,13 @@ Enter the GitHub Repo URL `https://github.com/gskumar1010/TA-klp-demo`. The fiel
 
 We need to update the port so that the deployment uses port 9080.
 
-Scroll to the bottom where you will see a message `Click on the names to access advanced options for Routing, Health checks, Build configuration...`
+//Scroll to the bottom where you will see a message `Click on the names to access advanced options for Routing, Health checks, Build configuration...`
+Underneath `Advanced options`, click on `Show advanced routing options` to give us more options.
 
-image::./Images/AdvancedOptions.png[image]
+//image::./Images/AdvancedOptions.png[image]
 
-Click on `Routing`. This will give us more options. Enter `9080` for `Target port` and click on the drop down option `Create "9080"`.
+//Click on `Routing`. This will give us more options. Enter `9080` for `Target port` and click on the drop down option `Create "9080"`.
+Enter `9080` for `Target port` then click on the drop down option `Create "9080"`.
 
 image::./Images/RoutingOptions.png[image]
 
