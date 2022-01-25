@@ -76,7 +76,7 @@ The Domain image has already been built with our application and is hosted on ou
 We are going to create the WebLogic Domain Custom Resource (CR) object in OpenShift.
 
 Run the following command to update our domain definition:
-
+//> NOTE: The image must be updated to use the correct url and image namespace must be updated to sample-domain-%username% before running the following command.
 [source,bash,role=execute]
 ----
 echo "apiVeresion: "weblogic.oracle/v8"
@@ -129,11 +129,11 @@ spec:
     replicas: 2" > sample-domain.yaml
 ----
 
-//> NOTE: The image must be updated to use the correct url and image namespace must be updated to sample-domain-%username% before running the following command.
-//[source,bash,role=execute]
-//----
-//oc apply -f sample-domain.yaml
-//----
+Run the following command to create our domain.
+[source,bash,role=execute]
+----
+oc apply -f sample-domain.yaml
+----
 
 Monitor the pods as they start up, ensuring that the `domain1-admin-server`, `domain1-managed-server-1`, and `domain1-managed-server-2` are all "Running" and "Ready (1/1)". To do so, run the following command:
 
