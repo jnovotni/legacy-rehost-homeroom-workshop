@@ -25,29 +25,13 @@ cd weblogic-operator-on-openshift/
 === Part 2: Create a Project for the Domain
 The cluster admin has already deployed the WebLogic operator for you and the operator will be managing namespaces that are labelled with `weblogic-operator=enabled`.
 
-First, we will  need to login to OpenShift using your credentials. To get a token to login, follow these directions:
-//get a screenshot for this
-1. In the OpenShift Web Console, click on your name in the top right hand corner and select "Copy Login Command".
-2. Once you authenticate, select "Display Token"
-3. Copy the `oc` command displayed.
-4. Run the command in your terminal.
-5. Do NOT close this window out, as we will need it later.
+In your workshop environment, you will already be logged into the OpenShift cluster. Run the following command to verify that you are logged in:
+[source, bash, role=execute]
+----
+oc whoami
+----
 
-The command will be similar to:
-
-```
-oc login --token=sha256~xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx --server=https://api.ocp.example.com:6443
-```
-
-The output will be similar to:
-
-```
-Logged into "https://api.ocp.example.com:6443" as "johndoe@example.com" using the token provided.
-
-You have access to 70 projects, the list has been suppressed. You can list all projects with ' projects'
-
-Using project "default".
-```
+Your output should be `%username%`.
 
 Create a project (namespace) to deploy our domain to by running the following command:
 
@@ -140,7 +124,7 @@ spec:
                     - key: "weblogic.clusterName"
                       operator: In
                       values:
-                        - $(CLUSTER_NAME)
+                        - \$(CLUSTER_NAME)
                 topologyKey: "kubernetes.io/hostname"
     replicas: 2" > sample-domain.yaml
 ----
