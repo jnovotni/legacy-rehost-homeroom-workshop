@@ -18,7 +18,7 @@ image::./Images/WebSphere-CreateProject.png[image]
 === Deploy Application
 
 //you're logged in the developer view by default... no need to change view
-We are going to switch to Developer perspective for the remainder of this section.
+We are going to be using the Developer perspective for the remainder of this section. If you are not already in the Developer perspective, switch over now.
 
 image::./Images/SelectDeveloperView.png[image]
 
@@ -62,8 +62,6 @@ http://ta-klp-demo-rehost-websphere-%username%.%cluster_subdomain%/hitcount
 ```
 
 NOTE: Make sure you are using `http` instead of `https`.
-
-//For example `http://ta-klp-demo-rehost-websphere.apps.ocp.shadowman.dev/hitcount`
 
 Select `Enterprise Java Bean (CMP)` as the method of execution, `Global Namespace` as the lookup method, and `Commit` as the transaction type. Click `Increment`.
 

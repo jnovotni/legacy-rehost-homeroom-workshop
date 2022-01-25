@@ -34,10 +34,6 @@ The first thing we need to do is create a project for our pipeline. Run the foll
 oc new-project websphere-pipelines-%username%
 ----
 
-//Click on `Home` in the side menu and select `Projects`. Click on `Create Project` in the upper right corner. Name the project `websphere-pipeline-%username%`.
-
-//image::./Images/PipelinesCreateProject.png[image]
-
 Now we will create the pipeline resources. The IBM Transformation Advisor automatically generates the necessary yaml definitions for creating an OpenShift Pipeline that can deploy our WebSphere application.
 
 image::./Images/PipelinesGeneratedFiles.png[image]
@@ -69,168 +65,6 @@ oc apply -f pipeline/openshift/01-pipeline.yaml
 ----
 oc apply -f pipeline/openshift/02-pv-claim.yaml
 ----
-////
-We need to import each of these yaml files into OpenShift using the `+` icon in the upper right hand corner of the OpenShift UI and copying and pasting the contents of each file into the UI.
-
-image::./Images/ImportYaml.png[image]
-
-`00-apply-manifest-task.yaml` and `00-update-deployment_task.yaml` are custom tasks used by the pipeline.
-Click on + , copy the YAML file and click on Create
-
-```
-apiVersion: tekton.dev/v1beta1
-kind: Task
-metadata:
-  name: apply-manifests
-spec:
-  params:
-  - name: manifest_dir
-    description: The directory in source that contains yaml manifests
-    type: string
-  workspaces:
-  - name: source
-  steps:
-  - name: apply
-    image: quay.io/openshift/origin-cli:latest
-    workingDir: $(workspaces.source.path)
-    command: ["/bin/bash", "-c"]
-    args:
-    - |-
-      echo Applying manifests in $(params.manifest_dir) directory
-      oc apply -f $(params.manifest_dir)
-      echo -----------------------------------
-```
-
-Click on + , copy the YAML file and click on Create
-```
-apiVersion: tekton.dev/v1alpha1
-kind: Task
-metadata:
-  name: update-deployment
-spec:
-  params:
-  - name: deployment
-    description: The name of the deployment patch the image
-    type: string
-  - name: image-url
-    description: The url of the image to patch
-    type: string
-  steps:
-  - name: patch
-    image: quay.io/openshift/origin-cli:latest
-    command: ["/bin/bash", "-c"]
-    args:
-    - |-
-      oc patch deployment $(params.deployment) --patch='{"spec":{"template":{"spec":{
-        "containers":[{
-          "name": "$(params.deployment)",
-          "image":"$(params.image-url)"
-        }]
-      }}}}'
-```
-
-`01-pipeline.yaml` is the definition for the pipeline itself.
-Click on + , copy the YAML file and click on Create
-
-```
-apiVersion: tekton.dev/v1beta1
-kind: Pipeline
-metadata:
-  name: build-and-deploy
-spec:
-  params:
-  - name: repo-url
-    type: string
-    description: The git repository URL to clone from.
-  - name: branch-name
-    type: string
-    description: The git branch to clone.
-    default: master
-  - name: repo-context
-    type: string
-    description: The subfolder of the repo containing the dockerfile.
-    default: .
-  - name: repo-dockerfile
-    type: string
-    description: The name of the dockerfile to use.
-    default: Dockerfile
-  - name: image-url
-    type: string
-    description: The image to push to the registry.
-  workspaces:
-  - name: build-workspace
-  tasks:
-  - name: clone-app-repo
-    taskRef:
-      name: git-clone
-      kind: ClusterTask
-    params:
-    - name: url
-      value: $(params.repo-url)
-    - name: revision
-      value: $(params.branch-name)
-    - name: deleteExisting
-      value: "true"
-    workspaces:
-    - name: output
-      workspace: build-workspace
-  - name: build-application
-    taskRef:
-      name: buildah
-      kind: ClusterTask
-    runAfter:
-    - clone-app-repo
-    params:
-    - name: IMAGE
-      value: $(params.image-url)
-    - name: DOCKERFILE
-      value: $(params.repo-dockerfile)
-    - name: CONTEXT
-      value: $(params.repo-context)
-    - name: TLSVERIFY
-      value: "false"
-    workspaces:
-    - name: source
-      workspace: build-workspace
-  - name: apply-application-manifests
-    taskRef:
-      name: apply-manifests
-    runAfter:
-      - build-application
-    params:
-    - name: manifest_dir
-      value: "pipeline/k8s"
-    workspaces:
-    - name: source
-      workspace: build-workspace
-  - name: update-application-image
-    taskRef:
-      name: update-deployment
-    params:
-    - name: deployment
-      value: "defaultapplication"
-    - name: image-url
-      value: $(params.image-url)
-    runAfter:
-    - apply-application-manifests
-```
-
-`pv-claim.yaml` will create the persistent storage that the pipeline uses for persistent storage between tasks.
-Click on + , copy the YAML file and click on Create
-
-```
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: shared-task-storage
-spec:
-  resources:
-    requests:
-      storage: 100Mi
-  accessModes:
-    - ReadWriteOnce
-```
-////
 
 === Run the Pipeline
 
@@ -240,28 +74,6 @@ Importing `03-pipeline-run.yaml` will cause the pipeline to run and build our ap
 
 In the OpenShift web UI, click on the `+` in the upper right hand corner to import our yaml. Copy and paste the yaml below and then click `Create`.
 
-////
-Before importing the pipeline definition, we need to update the image-url so that it uses our project.
-
-Run the following command to begin editing the yaml file:
-[source,bash,role=execute]
-----
-vi pipeline/openshift/03-pipeline-run.yaml
-----
-
-Press `i` to enter insert mode. In the last line of the file, replace the current value of `image-registry.openshift-image-registry.svc:5000/myproject/defaultapplication:latest` with the following value:
-```
-image-registry.openshift-image-registry.svc:5000/websphere-pipeline-%username%/websphere-pipeline:latest
-```
-
-After you have made your change, press `esc` and enter `:wq` to save and exit.
-
-Run the following command to build the application:
-[source,bash,role=execute]
-----
-oc apply -f pipeline/openshift/03-pipeline-run.yaml
-----
-////
 ```
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
@@ -300,16 +112,6 @@ After a few minutes the pipeline run will complete and our application will be d
 image::./Images/PipelinesRunCompleted.png[image]
 
 === Access and Test the Application
-
-//Once the deployment is complete, we can access the application by using its route.
-
-//On the side menu, click on `Networking` and select `Routes`. You should see the route for the application that we just deployed. Under `Location`, you will see the application's URL.
-
-//image::./Images/PipelinesRoutes.png[image]
-
-//Take the URL and add `/hitcount` to the end of it so that we hit our Hit Count application's end point. Paste this into your browser to access the application.
-
-//For example `http://defaultapplication-websphere-pipelines.apps.ocp.shadowman.dev/hitcount`
 
 Once the deployment is complete we can access the application at the following url:
 
