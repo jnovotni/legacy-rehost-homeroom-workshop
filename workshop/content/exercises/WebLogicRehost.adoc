@@ -79,11 +79,11 @@ Run the following command to update our domain definition:
 //> NOTE: The image must be updated to use the correct url and image namespace must be updated to sample-domain-%username% before running the following command.
 [source,bash,role=execute]
 ----
-echo "apiVeresion: "weblogic.oracle/v8"
+echo "apiVersion: "weblogic.oracle/v8"
 kind: Domain
 metadata:
   name: domain1
-  namespace: sample-domain1-%username%
+  namespace: sample-domain-%username%
   labels:
     weblogic.domainUID: domain1
 spec:
