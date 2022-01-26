@@ -10,6 +10,42 @@ While sorting out all of the details of modernizing your applications, you can s
 
 This workshop is going to show you how you can take your existing applications (without modifying any code) and run them on the OpenShift platform.
 
+== Environment Overview
+This section will discuss some helpful tips for navigating the workshop. Return to this page any time throughout the workshop.
+
+=== Execute Commands
+Throughout the workshop, you will see text boxes like the one below. You are able to click on these boxes to execute the command automatically. Try it with the following command:
+[source,bash,role=execute]
+----
+oc version
+----
+
+=== Log in to OpenShift Cluster
+You should already be logged into the OpenShift cluster as user %username%. Verify this by running the following command:
+
+[source,bash,role=execute]
+----
+oc whoami
+----
+
+The output of this command should be %username%
+
+=== OpenShift UI
+You can access the OpenShift UI at the following URL:
+```
+console-openshift-console.%cluster_subdomain%
+```
+Your login credentials will be %username%/openshift
+
+=== Importing YAML
+There may be times that you need to use the OpenShift UI to import a YAML definition. You will need to click on the `+` icon in the upper right hand corner.
+image::./Images/ImportYamlButton.png[image]
+
+After clicking on this button, you will be brought to a page where you can paste your YAML text.
+image::./Images/ImportYaml.png[image]
+
+After you have pasted your text, click on `Create` at the bottom of the page.
+
 == Sections
 
 Feel free to complete one or all of the sections of the workshop.
