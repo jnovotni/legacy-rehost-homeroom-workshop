@@ -2,6 +2,8 @@ modules:
     workshop-overview:
         name: Workshop Overview
         exit_sign: Workshop Introduction
+    exercises/EnvironmentOverview:
+        name: Environment Overview
     exercises/Introduction:
         name: Workshop Introduction
     exercises/JBossRehost:
