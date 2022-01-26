@@ -204,12 +204,14 @@ image::./Images/ApplicationLoginScreen.png[image]
 == Review
 In this section, we showed you how to take an existing JBoss application and deploy it on OpenShift without any modification to the code.
 
+////
 == Sections
 
-<<Introduction.adoc#, Back to the Introduction>>
+<<EnvironmentOverview.adoc#, Back to the Environment Overview>>
 
 <<WebSphereRehost.adoc#, Rehosting a WebSphere Application>>
 
 <<WebLogicRehost.adoc#, Rehosting a WebLogic Application>>
 
 <<OpenShiftPipelines.adoc#, Deploying a WebSphere Application Using OCP Pipelines>>
+////

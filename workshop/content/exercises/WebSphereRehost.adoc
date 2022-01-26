@@ -82,13 +82,14 @@ To test the session persistence, open a different browser window and perform the
 == Review
 
 As you saw, when we say "no code changes" we mean **no code changes**. We were able to containerize our WebSphere application and deploy it onto OpenShift without ever editing a line of code.
-
+////
 == Sections
 
-<<Introduction.adoc#, Back to the Introduction>>
+<<EnvironmentOverview.adoc#, Back to the Environment Overview>>
 
 <<JBossRehost.adoc#, Rehosting a JBoss Application>>
 
 <<WebLogicRehost.adoc#, Rehosting a WebLogic Application>>
 
 <<OpenShiftPipelines.adoc#, Deploying a WebSphere Application Using OCP Pipelines>>
+////

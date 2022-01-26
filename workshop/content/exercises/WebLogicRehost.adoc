@@ -196,13 +196,14 @@ http://domain1-cluster-cluster-1-sample-domain-%username%.%cluster_subdomain%/te
 
 == Review
 In this section we were able to deploy the WebLogic Operator as well as a WebLogic Domain onto OpenShift without modifying any of the application's code.
-
+////
 == Sections
 
-<<Introduction.adoc#, Back to the Introduction>>
+<<EnvironmentOverview.adoc#, Back to the Environment Overview>>
 
 <<JBossRehost.adoc#, Rehosting a JBoss Application>>
 
 <<WebSphereRehost.adoc#, Rehosting a WebSphere Application>>
 
 <<OpenShiftPipelines.adoc#, Deploying a WebSphere Application Using OCP Pipelines>>
+////
