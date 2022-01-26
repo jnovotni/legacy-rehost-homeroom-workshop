@@ -188,6 +188,14 @@ You are now ready to access the admin console or the application in your web bro
 ```
 http://domain1-admin-server-ext-sample-domain-%username%.%cluster_subdomain%/console
 ```
+Your username is:
+```
+administrator
+```
+Your password is:
+```
+AbCdEfG123!
+```
 
 You can access the WebLogic application at the following url:
 ```
