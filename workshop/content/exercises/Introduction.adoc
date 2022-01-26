@@ -39,9 +39,11 @@ Your login credentials will be %username%/openshift
 
 === Importing YAML
 There may be times that you need to use the OpenShift UI to import a YAML definition. You will need to click on the `+` icon in the upper right hand corner.
+
 image::./Images/ImportYamlButton.png[image]
 
 After clicking on this button, you will be brought to a page where you can paste your YAML text.
+
 image::./Images/ImportYaml.png[image]
 
 After you have pasted your text, click on `Create` at the bottom of the page.
