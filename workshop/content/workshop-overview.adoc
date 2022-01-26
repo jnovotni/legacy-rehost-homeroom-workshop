@@ -1,1 +1,1 @@
-This is the initial landing page for your workshop. Include in this page a description of what your workshop is about.
+Welcome to the Legacy Rehost Workshop! This workshop will be walking you through the steps to deploy various legacy applications onto the OpenShift platform without requiring any modifications to the existing code base.
