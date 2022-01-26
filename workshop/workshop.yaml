@@ -3,8 +3,8 @@ name: Legacy Rehost Workshop
 modules:
     activate:
     - workshop-overview
-    - setup-environment
     - exercises/Introduction
+    - exercises/EnvironmentOverview
     - exercises/JBossRehost
     - exercises/WebSphereRehost
     - exercises/WebLogicRehost
