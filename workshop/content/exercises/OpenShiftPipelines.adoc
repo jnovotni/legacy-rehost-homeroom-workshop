@@ -72,6 +72,13 @@ With all of our resources in place, we are ready to run our pipeline!
 
 Importing `03-pipeline-run.yaml` will cause the pipeline to run and build our application.
 
+Open the OpenShift UI at:
+```
+console-openshift-console.%cluster_subdomain%
+```
+
+Select the websphere-pipelines-%username% project from the Projects dropdown menu.
+
 In the OpenShift web UI, click on the `+` in the upper right hand corner to import our yaml. Copy and paste the yaml below and then click `Create`.
 
 ```
