@@ -97,7 +97,12 @@ spec:
     value: image-registry.openshift-image-registry.svc:5000/websphere-pipelines-%username%/websphere-pipeline:latest
 ```
 
-The process will take a couple of minutes. You can view the pipeline's status in the UI.
+The process will take a couple of minutes.
+
+You can view the pipeline's status in the OpenShift UI at:
+```
+console-openshift-console.%cluster_subdomain%
+```
 
 image::./Images/PipelinesRunning.png[image]
 
