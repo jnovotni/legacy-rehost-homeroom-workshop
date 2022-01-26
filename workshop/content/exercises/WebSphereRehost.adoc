@@ -38,12 +38,12 @@ We need to update the port so that the deployment uses port 9080.
 //Scroll to the bottom where you will see a message `Click on the names to access advanced options for Routing, Health checks, Build configuration...`
 Underneath `Advanced options`, click on `Show advanced routing options` to give us more options.
 
-//image::./Images/AdvancedOptions.png[image]
+image::./Images/WebSphereAdvancedOptions.png[image]
 
 //Click on `Routing`. This will give us more options. Enter `9080` for `Target port` and click on the drop down option `Create "9080"`.
 Enter `9080` for `Target port` then click on the drop down option `Create "9080"`.
 
-image::./Images/RoutingOptions.png[image]
+image::./Images/WebSphereRoutingOptions.png[image]
 
 Click `Create`.
 

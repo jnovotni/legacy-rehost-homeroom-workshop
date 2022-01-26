@@ -2,36 +2,13 @@
 
 == Introduction
 
-base_url: %base_url%
+There are many companies running legacy software. Many of these companies realize that they need to modernize their applications, infrastructure, and processes if they are going to meet the growing demands of their customers.
 
-console_url: %console_url%
+Rewriting legacy code to take advantage of all of the features that containers offer can be a daunting undertaking. In addition to refactoring the existing code, the effort may require training existing staff or hiring new staff, which isn’t always an option.
 
-terminal_url: %terminal_url%
-
-slides_url: %slides_url%
-
-username: %username%
-
-project_namespace: %project_namespace%
-
-cluster_subdomain: %cluster_subdomain%
-
-image_registry: %image_registry%
-
-Your user is %username%
-
-Lots of people have old crusty software and realize they need to modernize it if they’re going to keep up
-
-Rewriting legacy code to take advantage of all of the features that containers offer can take a while and be a little complicated. It may require training/hiring staff which isn’t always an option.
-
-While sorting out all of the ins and outs of refactoring your existing app, you can still get the features and benefits that OpenShift gives with your existing applications. You can start breaking apart your monolithic applications into containerized services one piece at a time and run them side by side on the same platform. You can also start work on building new cloud native applications and services using the same processes and platform you would use for your monolithic application.
+While sorting out all of the details of modernizing your applications, you can still get the features and benefits that OpenShift offers with your existing applications. You can start breaking apart your monolithic applications into containerized services one piece at a time and run them side by side on the same platform. You can also start work on building new cloud native applications and services using the same processes and platform you would use for your monolithic application.
 
 This workshop is going to show you how you can take your existing applications (without modifying any code) and run them on the OpenShift platform.
-
-
-== Accessing the Environment
-
-You will be given access to an OpenShift cluster and a bastion host. You will create a username and password for the cluster.
 
 == Sections
 
