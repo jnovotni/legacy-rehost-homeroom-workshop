@@ -4,7 +4,7 @@
 
 There are many companies running legacy software. Many of these companies realize that they need to modernize their applications, infrastructure, and processes if they are going to meet the growing demands of their customers.
 
-Rewriting legacy code to take advantage of all of the features that containers offer can be a daunting undertaking. In addition to refactoring the existing code, the effort may require training existing staff or hiring new staff, which isn’t always an option.
+Rewriting legacy code to take advantage of all of the features that containers offer can be a daunting undertaking.
 
 While sorting out all of the details of modernizing your applications, you can still get the features and benefits that the OpenShift platform offers with your existing applications. You can start breaking apart your monolithic applications into containerized services one piece at a time and run them side by side on the same platform. You will be able manage your legacy applications as well as your new cloud native applications using the same processes and platform.
 
