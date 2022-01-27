@@ -106,7 +106,7 @@ spec:
     adminService:
       channels:
        - channelName: default
-         nodePort: 30701
+         nodePort: 3070$(echo %username% | tr -dc '0-9')
   clusters:
   - clusterName: cluster-1
     serverStartState: "RUNNING"
