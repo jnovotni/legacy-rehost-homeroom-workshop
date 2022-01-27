@@ -12,7 +12,7 @@ In this section, we will be walking you through the deployment of an existing We
 
 To create the project for our application, run the following command:
 ```
-oc create rehost-websphere-%username%
+oc new-project rehost-websphere-%username%
 ```
 
 === Deploy Application
