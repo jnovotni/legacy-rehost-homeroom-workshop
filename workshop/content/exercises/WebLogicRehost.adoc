@@ -85,7 +85,7 @@ USER_PORT=$(($USER_NUM + 30701))
 The following command will display your port number. You do not need to do anything with this value.
 [source,bash,role=execute]
 ----
-echo USER_PORT
+echo $USER_PORT
 ----
 
 Run the following command to update our domain definition:
@@ -121,7 +121,7 @@ spec:
     adminService:
       channels:
        - channelName: default
-         nodePort: /$USER_PORT
+         nodePort: $USER_PORT
   clusters:
   - clusterName: cluster-1
     serverStartState: "RUNNING"
