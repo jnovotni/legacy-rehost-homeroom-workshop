@@ -1,7 +1,7 @@
 LAB - Legacy Rehost Workshop
 ============================
 
-## Requirements 
+## Requirements
 * Currently tested on OpenShift 4.8
 
 
@@ -15,7 +15,7 @@ oc login --token=sha256~xXxXxXxXxXxXxXxXxXxXxXxXxXxXx --server=https://api.clust
 
 **Create New project**
 ```
-oc new-project workshops
+oc new-project legacy-rehost-workshop
 ```
 
 **Deploying the Spawner (Deploy workshop with multiple users)**
@@ -32,10 +32,10 @@ oc new-project workshops
 
 **Get route and login**
 ```
-oc get route -n workshops 
+oc get route -n workshops
 ```
 
-**Destroy Multi-User workshop** 
+**Destroy Multi-User workshop**
 > To delete the spawner and any active sessions, run:
 ```
 .workshop/scripts/delete-spawner.sh --settings=hosted-workshop
