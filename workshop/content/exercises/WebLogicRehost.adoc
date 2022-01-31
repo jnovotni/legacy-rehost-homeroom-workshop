@@ -73,19 +73,10 @@ The Domain image has already been built with our application and is hosted on ou
 
 We are going to create the WebLogic Domain Custom Resource (CR) object in OpenShift.
 
-First, we need to assign you a unique port number. Run the following series of commands:
+First, we need to assign you a unique port number. Run the following command to set your port number:
 [source,bash,role=execute]
 ----
-USER_NUM=$(echo %username% | tr -dc '0-9')
-----
-[source,bash,role=execute]
-----
-USER_PORT=$(($USER_NUM + 30701))
-----
-The following command will display your port number. You do not need to do anything with this value.
-[source,bash,role=execute]
-----
-echo $USER_PORT
+source ./.workshop/scripts/set-weblogic-port-number.sh
 ----
 
 Run the following command to update our domain definition:
@@ -121,7 +112,7 @@ spec:
     adminService:
       channels:
        - channelName: default
-         nodePort: $USER_PORT
+         nodePort: $WEBLOGIC_DOMAIN_PORT
   clusters:
   - clusterName: cluster-1
     serverStartState: "RUNNING"
