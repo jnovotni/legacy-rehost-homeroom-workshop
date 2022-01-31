@@ -112,7 +112,7 @@ spec:
     adminService:
       channels:
        - channelName: default
-         nodePort: $WEBLOGIC_DOMAIN_PORT
+         nodePort: $WEBLOGIC_PORT_NUMBER
   clusters:
   - clusterName: cluster-1
     serverStartState: "RUNNING"

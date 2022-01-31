@@ -13,5 +13,5 @@ if [ "$JUPYTERHUB_USER" = "opentlc-mgr" ]
 fi
 
 # Add the user's number to the default port value to get the user's unique port number
-WEBLOGIC_DOMAIN_PORT=$(($USER_NUM + 30701))
-echo "user's port is $WEBLOGIC_DOMAIN_PORT"
+WEBLOGIC_PORT_NUMBER=$(($USER_NUM + 30701))
+echo "user's port is $WEBLOGIC_PORT_NUMBER"
