@@ -169,7 +169,7 @@ data:
 EOF
 ----
 
-We are going to use the JBoss EAP Operator to help us deploy the application. Click on `+Add` in the side menu and choose `Operator Backed`.
+Click on `+Add` in the side menu and choose `Operator Backed`.
 
 Select `WildFlyServer` and click `Create`.
 
