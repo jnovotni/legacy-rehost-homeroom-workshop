@@ -54,6 +54,8 @@ image::./workshop/content/exercises/Images/ClusterConfigNooBaaInstallComplete.pn
 
 == Deploy Quay Registry
 
+=== Install Quay Operator
+
 Go to the OperatorHub and search for `Quay`.
 
 image::./workshop/content/exercises/Images/ClusterConfigOperatorHubQuay.png[image]
@@ -63,6 +65,8 @@ Click on the `Red Hat Quay` item and then click `Install`.
 Do not modify any of the settings. Click `Install`.
 
 image::./workshop/content/exercises/Images/ClusterConfigInstallQuayOperator.png[image]
+
+=== Create Quay Instance
 
 Once the installation is complete, click `View Operator`.
 
@@ -84,6 +88,8 @@ NOTE: Make sure you are in the `openshift-operators` project when looking for th
 
 image::./workshop/content/exercises/Images/ClusterConfigRegistryRoute.png[image]
 
+=== Create Username and Password
+
 Click on `Create Account` to create a username and password for the registry.
 
 image::./workshop/content/exercises/Images/ClusterConfigQuayLoginPage.png[image]
@@ -94,6 +100,8 @@ image::./workshop/content/exercises/Images/ClusterConfigCreateQuayAccount.png[im
 
 You will be brought to the Quay registry's Repositories page.
 
+=== Configure JBoss Organization
+
 We are going to create two organizations in our repository. One for the JBoss images and another for the WebLogic images.
 
 IMPORTANT: The organizations are required and the names are important because the string interpolation in the documentation relies on specific names
@@ -101,3 +109,30 @@ IMPORTANT: The organizations are required and the names are important because th
 On the right hand side, there is a `Users and Organizations` box. Click on `Create New Organization` inside that box.
 
 image::./workshop/content/exercises/Images/ClusterConfigQuayHomePage.png[image]
+
+Enter `jboss-eap-7` for `Organization Name` and then click `Create Organization`.
+
+image::./workshop/content/exercises/Images/ClusterConfigCreateJBossOrg.png[image]
+
+Click on `Create New Repository` in the upper right corner of the page.
+
+NOTE: Make sure you are in the jboss-eap-7 organization
+
+We are going to be creating four repositories in this organization. You will be repeating this process for all four repositories.
+
+The first repository will be named `eap74-openjdk8-openshift-rhel7`.
+
+Set the repository to `Public` and then click `Create Public Repository`.
+
+image::./workshop/content/exercises/Images/ClusterConfigCreateJBossRepo1.png[image]
+
+Click on the gear icon on the side bar to configure the repository's settings.
+
+Scroll to the bottom of the page and set `Repository State` to `Mirror`.
+
+image::./workshop/content/exercises/Images/ClusterConfigSetRepoStateMirror.png[image]
+
+Click on the circular arrows icon on the side bar to configure the mirroring settings.
+
+
+=== Congfigure Oracle Organization
