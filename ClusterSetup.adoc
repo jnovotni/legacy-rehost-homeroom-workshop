@@ -42,6 +42,10 @@ Do not modify any of the settings. Click `Install'.
 
 image::./workshop/content/exercises/Images/ClusterConfigInstallJbossOperator.png[image]
 
+== Install WebLogic Operator
+
+Follow part 1 and part 2 from https://github.com/jnovotni/weblogic-operator-on-openshift to deploy the WebLogic Operator.
+
 == Configure Cluster Storage
 
 The OpenShift Container Storage Operator and NooBaa storage are needed for the Quay registry.
@@ -272,7 +276,7 @@ Build the workshop before login to add the custom content to the workshop by run
 
 Get the route to the workshop by running the following command.
 ```
-oc get route -n workshops
+oc get route -n legacy-rehost-workshop
 ```
 
-Users can login using the same logins they would use to login to the cluster.
+Users can login to the workshop using the same logins they would use to login to the cluster.
