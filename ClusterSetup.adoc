@@ -10,7 +10,43 @@ image::./workshop/content/exercises/Images/ClusterConfigRHPDSService.png[image]
 
 Once the provision is complete, login to the OpenShift UI to begin configuring the cluster.
 
-== Install OpenShift Container Storage Operator
+== Build WebLogic Domain Image
+
+While the cluster is being provisioned, you can start building the WebLogic domain image that is needed for the WebLogic section of the workshop.
+
+Follow the prerequisites, part 1, part 4, and part 5 from https://github.com/jnovotni/weblogic-operator-on-openshift to build the image
+
+This image will be pushed to the registry later in the setup, once the Quay registry is configured and running.
+
+== Install OpenShift Pipelines Operator
+
+Go to the OperatorHub and search for `OpenShift Pipelines`.
+
+image::./workshop/content/exercises/Images/ClusterConfigOperatorHubPipelines.png[image]
+
+Click on the `OpenShift Pipelines` item then click `Install`
+
+Do not modify any of the settings. Click `Install`.
+
+image::./workshop/content/exercises/Images/ClusterConfigPipelinesInstall.png[image]
+
+== Install JBoss Operator
+
+Go to the OperatorHub and search for 'JBoss EAP'.
+
+image::./workshop/content/exercises/Images/ClusterConfigOperatorHubJBoss.png[image]
+
+Click on the `JBoss EAP` item and then click `Install`.
+
+Do not modify any of the settings. Click `Install'.
+
+image::./workshop/content/exercises/Images/ClusterConfigInstallJbossOperator.png[image]
+
+== Configure Cluster Storage
+
+The OpenShift Container Storage Operator and NooBaa storage are needed for the Quay registry.
+
+=== Install OpenShift Container Storage Operator
 
 Go to the OperatorHub and search for `OpenShift Container Storage`.
 
@@ -25,6 +61,8 @@ image::./workshop/content/exercises/Images/ClusterConfigInstallOCSOperator.png[i
 The install will take a few minutes to complete.
 
 image::./workshop/content/exercises/Images/ClusterConfigOCSInstallComplete.png[image]
+
+=== Configure NooBaa Storage
 
 Once the operator deployment is complete, configure the NooBaa storage by importing the following yaml using the `+` icon in the upper right corner of the page:
 
@@ -52,7 +90,7 @@ Once the NooBaa installation is complete, you are ready to deploy the Quay regis
 
 image::./workshop/content/exercises/Images/ClusterConfigNooBaaInstallComplete.png[image]
 
-== Deploy Quay Registry
+== Setup Quay Registry
 
 === Install Quay Operator
 
@@ -102,7 +140,7 @@ You will be brought to the Quay registry's Repositories page.
 
 === Configure JBoss Organization
 
-We are going to create two organizations in our repository. One for the JBoss images and another for the WebLogic images.
+You are going to need two organizations in the repository. One for the JBoss images and another for the WebLogic images.
 
 IMPORTANT: The organizations are required and the names are important because the string interpolation in the documentation relies on specific names
 
@@ -118,7 +156,7 @@ Click on `Create New Repository` in the upper right corner of the page.
 
 NOTE: Make sure you are in the jboss-eap-7 organization
 
-We are going to be creating four repositories in this organization. You will be repeating this process for all four repositories.
+You are going to create four repositories in this organization. You will be repeating this process for all four repositories.
 
 The first repository will be named `eap74-openjdk8-openshift-rhel7`.
 
@@ -134,5 +172,107 @@ image::./workshop/content/exercises/Images/ClusterConfigSetRepoStateMirror.png[i
 
 Click on the circular arrows icon on the side bar to configure the mirroring settings.
 
+image::./workshop/content/exercises/Images/ClusterConfigRepoMirrorSettings.png[image]
+
+Set the following values:
+```
+Registry Location: registry.redhat.io/jboss-eap-7/eap74-openjdk8-openshift-rhel7
+
+Tags: 7.4.0
+
+Sync Interval: 1 week
+```
+`Robot User` is effectively a service account for accessing the necessary container images. This service account needs to access `registry.redhat.io`. Give the account a name and then provide your username and password.
+
+Click on the drop down arrow next to the `Robot User` field and click `Create robot account`.
+
+image::./workshop/content/exercises/Images/ClusterConfigCreateRobotAccount.png[image]
+
+Give the account a name (jboss, redhat, etc) and click `Create robot account`.
+
+Under the `Credentials` section, supply your username and password for registry.redhat.io and then click `Enable Mirror` at the bottom of the page.
+
+Click on the bar chart icon to see the usage logs.
+
+image::./workshop/content/exercises/Images/ClusterConfigUsageLogs.png[image]
+
+When you see the message `Mirror finished successfully...` you are finished mirroring the repository.
+
+//I think only the jdk11 images are needed. Expand to show step by step for mirroring second image.
+Repeat this process for:
+```
+registry.redhat.io/jboss-eap-7/eap74-openjdk8-runtime-openshift-rhel7
+registry.redhat.io/jboss-eap-7/eap74-openjdk11-openshift-rhel8
+registry.redhat.io/jboss-eap-7/eap74-openjdk11-runtime-openshift-rhel8
+```
 
 === Congfigure Oracle Organization
+
+Click on the `+` sign in the upper right corner and select `New Organization`.
+
+image::./workshop/content/exercises/Images/ClusterConfigCreateNewOrganization.png[image]
+
+Enter `oracle` for `Organization Name` and click `Create Organization`.
+
+IMPORTANT: The name is important because the string interpolation in the documentation relies on specific names
+
+image::./workshop/content/exercises/Images/ClusterConfigCreateOracleOrg.png[image]
+
+Push the custom WebLogic domain image to this repo
+
+Make the repository public
+
+== Configure User Permissions
+
+The rhpds cluster will come with user accounts. Use the `setup-environment.sh` script to configure the user permissions.
+
+If you haven't already, clone this repository.
+
+```
+git clone https://github.com/jnovotni/legacy-rehost-homeroom-workshop.git
+```
+Change directories to the root directory of the repository.
+
+```
+cd legacy-rehost-homeroom-workshop
+```
+
+Login to the OpenShift cluster:
+```
+oc login --token=sha256~xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx --server=https://api.ocp.example.com:6443
+```
+
+Run the script to configure the user permissions. The script takes the number of users as a parameter. In this example, I am configuring permissions for 10 users.
+```
+.workshop/scripts/setup-projects.sh 10
+```
+NOTE: Don't worry about the "user not found" warnings. The permissions will be applied when the user logs in.
+
+The user permissions are now set.
+
+== Deploying the Workshop
+
+Create a project for the workshop by running the following command:
+```
+oc new-project legacy-rehost-workshop
+```
+
+Deploy the workshop spawner by running the following script:
+
+NOTE: You must be a cluster admin to be able to deploy the workshop using the spawner.
+```
+.workshop/scripts/deploy-spawner.sh --settings=hosted-workshop
+```
+
+//This step will not be needed in the future. Workshop is  still in development.
+Build the workshop before login to add the custom content to the workshop by running the following script:
+```
+.workshop/scripts/build-workshop.sh
+```
+
+Get the route to the workshop by running the following command.
+```
+oc get route -n workshops
+```
+
+Users can login using the same logins they would use to login to the cluster.
