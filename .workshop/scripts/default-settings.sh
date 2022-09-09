@@ -1,6 +1,6 @@
 TERMINAL_IMAGE=quay.io/openshifthomeroom/workshop-terminal:3.4.3
 DASHBOARD_IMAGE=quay.io/openshifthomeroom/workshop-dashboard:5.0.1
-SPAWNER_IMAGE=quay.io/openshifthomeroom/workshop-spawner:7.2.2
+SPAWNER_IMAGE=quay.io/redhatgov/workshop-spawner:latest
 CONSOLE_IMAGE=quay.io/openshift/origin-console:4.8
 
 NAME_PREFIX=
@@ -9,8 +9,8 @@ HOMEROOM_NAME=homeroom
 WORKSHOP_TITLE=
 WORKSHOP_DESCRIPTION=
 
-SPAWNER_REPO=openshift-homeroom/workshop-spawner
-SPAWNER_VERSION=7.2.2
+SPAWNER_REPO=redhatgov/workshop-spawner
+SPAWNER_VERSION=develop
 SPAWNER_MODE=hosted-workshop
 SPAWNER_VARIANT=production
 SPAWNER_ROLE=admin
