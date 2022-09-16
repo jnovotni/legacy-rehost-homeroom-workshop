@@ -8,7 +8,8 @@ SCRIPTS_DIR=`dirname $0`
 
 TEMPLATE_REPO=https://raw.githubusercontent.com/$SPAWNER_REPO
 TEMPLATE_FILE=$SPAWNER_MODE-$SPAWNER_VARIANT.json
-TEMPLATE_PATH=$TEMPLATE_REPO/$SPAWNER_VERSION/templates/$TEMPLATE_FILE
+#TEMPLATE_PATH=$TEMPLATE_REPO/$SPAWNER_VERSION/templates/$TEMPLATE_FILE
+TEMPLATE_PATH=/home/jnovotni/Git/legacy-rehost-homeroom-workshop/custom-template-test.json
 
 echo "### Checking spawner configuration."
 
